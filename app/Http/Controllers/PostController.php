@@ -37,13 +37,18 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        $post = new Post();
+        $request->validate([
+            'title' => 'required',
+            'content' => 'required',
+        ]);
         
+        
+        $post = new Post();
         $post->title = $request->input('title');
         $post->content = $request->input('content');
         $post->save();
         
-        return redirect()->route('posts.show',['id' => $post->id])->with('message', 'Post was successfully created.');
+        return redirect()->route('posts.show',['id' => $post->id])->with('message','Post was successfully created.');
     }
 
     /**
@@ -54,6 +59,7 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
+        $post = Post::findOrFail($id);
         return view('posts.show',compact('post'));
     }
 
@@ -77,6 +83,11 @@ class PostController extends Controller
      */
     public function update(Request $request, Post $post)
     {
+        $request->validate([
+            'title' => 'required',
+            'content' => 'required',
+            ]);
+            
         $post->title = $request->input('title');
         $post->content = $request->input('content');
         $post->save();

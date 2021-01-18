@@ -26,7 +26,7 @@
        </div>
      </div>
 
-     <a href="/posts/{[ $post->id }}/edit">Edit</a>
+     <a href="/posts/{{ $post->id }}/edit">Edit</a>
      <a href="/posts">Back</a>
 
 @endsection
